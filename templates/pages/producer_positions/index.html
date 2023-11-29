@@ -1,0 +1,122 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0">
+                    <h6>
+                        {% if type == 'TARGET' %}
+                            Таргетные Позиции Продюсеров
+                        {% elif type == 'EXISTING' %}
+                            Текущие Позиции Продюсеров
+                        {% endif %}
+                    </h6>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-3">
+                            <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ticket
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    Дата создания
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Дата входа в сделку
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Тип
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Объем входа
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Символ
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Цена входа
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Стоп Лосс
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Тейк Профит
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Продьюсер UID
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Сервер
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Позиция создалась
+                                </th>
+                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Коментарий
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for position in positions %}
+                                <tr>
+                                    <td class="align-middle text-center">
+                                        <p class="text-sm font-weight-bold mb-0">{{ position.ticket }}</p>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <p class="text-sm font-weight-bold mb-0">{{ position.created_at }}</p>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <p class="text-sm font-weight-bold mb-0">{{ position.time }}</p>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <p class="text-sm font-weight-bold mb-0">
+                                            {% if position.type == 0 %}
+                                                <span class="badge badge-sm bg-gradient-success">Buy</span>
+                                            {% elif position.type == 1 %}
+                                                <span class="badge badge-sm bg-gradient-danger">Sell</span>
+                                            {% else %}
+                                                <span class="badge badge-sm bg-gradient-secondary">Неизвестный тип</span>
+                                            {% endif %}
+                                        </p>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <p class="text-xs font-weight-bold mb-0">{{ position.volume }}</p>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <p class="text-xs font-weight-bold mb-0">{{ position.symbol }}</p>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <p class="text-xs font-weight-bold mb-0">{{ position.price_open }}</p>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <p class="text-xs font-weight-bold mb-0">{{ position.sl }}</p>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <p class="text-xs font-weight-bold mb-0">{{ position.tp }}</p>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <p class="text-xs font-weight-bold mb-0">{{ position.trader_uid }}</p>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <p class="text-xs font-weight-bold mb-0">{{ position.server }}</p>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="badge badge-sm bg-gradient-success">Да</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <p class="text-xs font-weight-bold mb-0">{{ position.comment }}</p>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

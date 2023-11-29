@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpRequest
+
 
 # Create your views here.
 
-def index(request):
-
-    # Page from the theme 
+def home(request):
+    assert isinstance(request, HttpRequest)
     return render(request, 'pages/index.html')

@@ -97,7 +97,7 @@ The project is coded using a simple and intuitive structure presented below:
    |    |-- urls.py       # Project Routing
    |
    |-- home/
-   |    |-- views.py      # APP Views 
+   |    |-- home.py      # APP Views 
    |    |-- urls.py       # APP Routing
    |    |-- models.py     # APP Models 
    |    |-- tests.py      # Tests  
@@ -115,7 +115,7 @@ The project is coded using a simple and intuitive structure presented below:
    |-- requirements.txt   # Project Dependencies
    |
    |-- env.sample         # ENV Configuration (default values)
-   |-- manage.py          # Start the app - Django default start script
+   |-- manage.py          # Start the home - Django default start script
    |
    |-- ************************************************************************
 ```
