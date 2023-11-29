@@ -1,0 +1,55 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container-fluid py-4">
+        <div class="col-12">
+            <div class="panel panel-default">
+                <div class="card mb-4">
+                    <div class="card-header p-4 pb-0">
+                        <h6>{% if form.instance.pk %}Обновить{% else %}Добавить новый{% endif %} стейт
+                            консьюмера {{ trader_id }}</h6>
+                    </div>
+                    {#                    {% if form.instance.pk %}#}
+                    {#{{ form.as_p }}#}
+                    <div class="card-body px-0 pt-0 pb-2">
+                        <div class="p-4">
+                            {% if form.instance.pk %}
+                                <form role="form" action="{% url 'update_consumer_state' form.instance.pk %}"
+                                      method="post">
+                            {% else %}
+                                <form role="form" action="{% url 'store_consumer_state' %}" method="post">
+                            {% endif %}
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label class="required">ID консьюмера:</label>
+                                {{ form.consumer }}
+                            </div>
+                            <div class="form-group">
+                                <label class="required">Начальный баланс:</label>
+                                {{ form.starting_balance }}
+                            </div>
+                            <div class="form-group">
+                                <label class="required">Начальный эквити:</label>
+                                {{ form.starting_equity }}
+                            </div>
+                            <div class="form-group">
+                                <label class="required">Обновление баланса:</label>
+                                {{ form.balance_update }}
+                            </div>
+                            <div class="form-group form-check form-switch">
+                                <label class="required">Может торговать?</label>
+                                {{ form.can_trade }}
+                            </div>
+                            <button type="submit" id="submit" class="btn btn-primary">Save</button>
+                            <button type="reset" class="btn btn-default">Reset</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

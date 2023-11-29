@@ -1,10 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'layouts/base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block content %}
+    <div class="container-fluid py-4">
+        <div class="col-12">
+            <div class="panel panel-default">
+                <div class="card mb-4">
+                    <div class="card-header p-4 pb-0">
+                        <h6>Добавление нового трейдера</h6>
+                    </div>
+                    <div class="card-body px-0 pt-0 pb-2">
+                        <div class="p-4">
+                            <form role="form" action="{% url 'traders_store' %}" method="post">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label class="required">Username:</label>
+                                    {{ form.login }}
+                                    <span class="invalid-feedback"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="required">Server:</label>
+                                    {{ form.server }}
+                                    <span class="invalid-feedback"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="required">Password:</label>
+                                    {{ form.password }}
+                                    <span class="invalid-feedback"></span>
+                                </div>
+                                <div class="form-group form-check form-switch">
+                                    <label class="required">Является консьюмером?</label>
+                                    {{ form.is_consumer }}
+                                    <span class="invalid-feedback"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="required">Trader uid</label>
+                                    {{ form.trader_uid }}
+                                    <span class="invalid-feedback"></span>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-check form-switch">
+                                        <label class="required">Трейдер занят?</label>
+                                         {{ form.is_taken }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="required">Trader coefficient</label>
+                                    {{ form.coefficient }}
+                                    <span class="invalid-feedback"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="required">Trader balance</label>
+                                    {{ form.balance }}
+                                    <span class="invalid-feedback"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="required">Trader equity</label>
+                                    {{ form.equity }}
+                                    <span class="invalid-feedback"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="required">Trader type</label>
+                                    {{ form.trader_type }}
+                                    <span class="invalid-feedback"></span>
+                                </div>
+                                <button type="submit" id="submit" class="btn btn-primary">Save</button>
+                                <button type="reset" class="btn btn-default">Reset</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

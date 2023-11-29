@@ -3,6 +3,19 @@
 
 {% block content %}
     <div class="container-fluid py-4">
+    <div class="d-flex w-100 justify-content-center gap-3 align-items-center">
+        <div style="flex: 10">
+            <form action="#" method="get">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Search" name="search"
+                           value="{{ request.GET.search }}">
+                </div>
+            </form>
+        </div>
+        <div style="flex: 2">
+            <a href="{% url 'traders_add' %}" class="btn btn-sm btn-success float-right">Добавить нового трейдера</a>
+        </div>
+    </div>
     <div class="row">
         <div class="col-12">
             <div class="card mb-4">
@@ -80,17 +93,30 @@
                                     <td class="align-middle text-center">
                                         <p class="text-sm font-weight-bold mb-0">{{ trader.coefficient }}</p>
                                     </td>
-                                <td class="align-middle text-center">
+                                    <td class="align-middle text-center">
                                         <p class="text-sm font-weight-bold mb-0">{{ trader.balance }}</p>
                                     </td>
-                                <td class="align-middle text-center">
+                                    <td class="align-middle text-center">
                                         <p class="text-sm font-weight-bold mb-0">{{ trader.equity }}</p>
                                     </td>
                                     <td class="align-middle">
-                                        <a href="{% url 'traders_edit' trader.id %}" class="text-secondary font-weight-bold text-xs"
-                                           data-toggle="tooltip" data-original-title="Edit trader">
-                                            Edit
+                                        <a class="btn btn-info btn-group-sm" href="{% url 'traders_edit' trader.id %}">
+                                            Обновить
                                         </a>
+                                        {%  if trader.is_consumer %}
+                                            <a class="btn btn-warning btn-group-sm"
+                                               href="{% url 'consumer_state_edit' trader.id %}">
+                                                Обновить стейт
+                                            </a>
+                                        {% endif %}
+
+                                        <form action="{% url 'traders_delete' trader.id %}" method="post">
+                                            {% csrf_token %}
+                                            <button type="submit"
+                                                    onclick="return confirm('Вы уверены, что хотите удалить трейдера ?')"
+                                                    class="btn btn-danger btn-group-sm">Удалить
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             {% endfor %}
