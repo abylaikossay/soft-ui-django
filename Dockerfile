@@ -21,6 +21,6 @@ COPY . .
 EXPOSE 80
 
 # gunicorn
-#CMD ["gunicorn", "--config", "gunicorn-cfg.py", "core.wsgi"]
+CMD ["gunicorn", "--config", "gunicorn-cfg.py", "core.wsgi"]
 # Start NGINX and Gunicorn
-CMD ["gunicorn --config gunicorn-cfg.py core.wsgi"]
+#CMD ["gunicorn --config gunicorn-cfg.py core.wsgi"]
