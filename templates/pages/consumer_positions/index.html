@@ -3,118 +3,159 @@
 
 {% block content %}
     <div class="container-fluid py-4">
-    <div class="row">
-        <div class="col-12">
-            <div class="card mb-4">
-                <div class="card-header pb-0">
-                    <h6>
-                        {% if type == 'TARGET' %}
-                            Таргетные Позиции Консьюмеров
-                        {% elif type == 'EXISTING' %}
-                            Текущие Позиции Консьюмеров
-                        {% endif %}
-                    </h6>
+        {% if type == 'EXISTING' %}
+            <div class="d-flex w-100 justify-content-center gap-3 align-items-center">
+                <div style="flex: 10">
+                    <form action="#" method="get">
+                        <div class="input-group mb-3">
+                            <select onchange="changeConsulerSelect(this.value)" id="consumerSelect">
+                                <option value="">Выберите консьюмера</option>
+                                {% for consumer in consumers %}
+                                    <option value="{{ consumer.id }}">{{ consumer.login }}_{{ consumer.server }}</option>
+                                {% endfor %}
+                            </select>
+
+                        </div>
+                    </form>
                 </div>
-                <div class="card-body px-0 pt-0 pb-2">
-                    <div class="table-responsive p-0">
-                        <table class="table align-items-center mb-3">
-                            <thead>
-                            <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ticket
-                                </th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                    Дата создания
-                                </th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Дата входа в сделку
-                                </th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Тип
-                                </th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Объем входа
-                                </th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Символ
-                                </th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Цена входа
-                                </th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Стоп Лосс
-                                </th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Тейк Профит
-                                </th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Консьюмер UID
-                                </th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Сервер
-                                </th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Позиция создалась
-                                </th>
-                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Коментарий
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for position in positions %}
+                <div style="flex: 2">
+                    <a id="refreshPositionsButton" class="btn btn-sm btn-primary float-right disabled">Обновить позиции
+                        трейдера</a>
+                </div>
+            </div>
+
+        {% endif %}
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="card-header pb-0">
+                        <h6>
+                            {% if type == 'TARGET' %}
+                                Таргетные Позиции Консьюмеров
+                            {% elif type == 'EXISTING' %}
+                                Текущие Позиции Консьюмеров
+                            {% endif %}
+                        </h6>
+                    </div>
+                    <div class="card-body px-0 pt-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table class="table align-items-center mb-3">
+                                <thead>
                                 <tr>
-                                    <td class="align-middle text-center">
-                                        <p class="text-sm font-weight-bold mb-0">{{ position.ticket }}</p>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <p class="text-sm font-weight-bold mb-0">{{ position.created_at }}</p>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <p class="text-sm font-weight-bold mb-0">{{ position.time_in }}</p>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <p class="text-sm font-weight-bold mb-0">
-                                            {% if position.type == 'Buy' %}
-                                                <span class="badge badge-sm bg-gradient-success">{{ position.type }}</span>
-                                            {% else %}
-                                                <span class="badge badge-sm bg-gradient-danger">{{ position.type }}</span>
-                                            {% endif %}
-                                        </p>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <p class="text-xs font-weight-bold mb-0">{{ position.volume_in }}</p>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <p class="text-xs font-weight-bold mb-0">{{ position.symbol }}</p>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <p class="text-xs font-weight-bold mb-0">{{ position.price_in }}</p>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <p class="text-xs font-weight-bold mb-0">{{ position.sl }}</p>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <p class="text-xs font-weight-bold mb-0">{{ position.tp }}</p>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <p class="text-xs font-weight-bold mb-0">{{ position.trader_name }}</p>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <p class="text-xs font-weight-bold mb-0">{{ position.server }}</p>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <span class="badge badge-sm bg-gradient-success">Да</span>
-                                    </td>
-                                    <td class="align-middle text-center">
-                                        <p class="text-xs font-weight-bold mb-0">{{ position.comment }}</p>
-                                    </td>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Ticket
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Дата создания
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Дата входа в сделку
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Тип
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Объем входа
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Символ
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Цена входа
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Стоп Лосс
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Тейк Профит
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Консьюмер UID
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Сервер
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Позиция создалась
+                                    </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Коментарий
+                                    </th>
                                 </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                {% for position in positions %}
+                                    <tr>
+                                        <td class="align-middle text-center">
+                                            <p class="text-sm font-weight-bold mb-0">{{ position.ticket }}</p>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <p class="text-sm font-weight-bold mb-0">{{ position.created_at }}</p>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <p class="text-sm font-weight-bold mb-0">{{ position.time_in }}</p>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <p class="text-sm font-weight-bold mb-0">
+                                                {% if position.type == 'Buy' %}
+                                                    <span class="badge badge-sm bg-gradient-success">{{ position.type }}</span>
+                                                {% else %}
+                                                    <span class="badge badge-sm bg-gradient-danger">{{ position.type }}</span>
+                                                {% endif %}
+                                            </p>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <p class="text-xs font-weight-bold mb-0">{{ position.volume_in }}</p>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <p class="text-xs font-weight-bold mb-0">{{ position.symbol }}</p>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <p class="text-xs font-weight-bold mb-0">{{ position.price_in }}</p>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <p class="text-xs font-weight-bold mb-0">{{ position.sl }}</p>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <p class="text-xs font-weight-bold mb-0">{{ position.tp }}</p>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <p class="text-xs font-weight-bold mb-0">{{ position.trader_name }}</p>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <p class="text-xs font-weight-bold mb-0">{{ position.server }}</p>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <span class="badge badge-sm bg-gradient-success">Да</span>
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <p class="text-xs font-weight-bold mb-0">{{ position.comment }}</p>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        function changeConsulerSelect(selectedValue) {
+            console.log(selectedValue)
+            const refreshButton = document.getElementById("refreshPositionsButton");
+
+            if (selectedValue !== "") {
+                refreshButton.classList.remove("disabled");
+                refreshButton.setAttribute("href", `/refresh_positions/${selectedValue}`);
+            } else {
+                refreshButton.classList.add("disabled");
+                refreshButton.removeAttribute("href");
+            }
+        }
+    </script>
+
 {% endblock content %}
+

@@ -6,8 +6,12 @@
         <div class="col-12">
             <div class="panel panel-default">
                 <div class="card mb-4">
-                    <div class="card-header p-4 pb-0 d-flex">
-                        <h6>Обновление трейдера</h6>
+                    <div class="card-header p-4 pb-0 d-flex justify-content-between align-items-center">
+                        <a class="btn btn-info btn-group-sm" href="{% url 'traders_index' %}">
+                            Назад
+                        </a>
+                        <h6 class="text-center flex-grow-1 m-0">Обновление трейдера #{{ form.instance.pk }}</h6>
+                        <div style="width: 90px;"></div> <!-- Placeholder for alignment if needed -->
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="p-4">

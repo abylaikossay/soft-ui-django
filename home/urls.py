@@ -21,4 +21,6 @@ urlpatterns = [
     path('consumer_existing_positions/', consumer_existing_positions.index, name="consumer_existing_positions_index"),
     path('consumer_target_positions/', consumer_target_positions.index, name="consumer_target_positions_index"),
     path('provider_existing_positions/', provider_existing_positions.index, name="provider_existing_positions_index"),
+    path('refresh_positions/<int:consumer_id>/', consumer_existing_positions.refresh_positions, name='refresh_positions'),
+
 ]
