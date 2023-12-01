@@ -15,8 +15,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-RUN apt-get update && apt-get install -y nginx
-COPY ./nginx/appseed-app.conf /etc/nginx/sites-available/default
+#COPY ./nginx/appseed-app.conf /etc/nginx/sites-available/default
 
 
 EXPOSE 80
@@ -24,4 +23,4 @@ EXPOSE 80
 # gunicorn
 #CMD ["gunicorn", "--config", "gunicorn-cfg.py", "core.wsgi"]
 # Start NGINX and Gunicorn
-CMD ["sh", "-c", "service nginx start && gunicorn --config gunicorn-cfg.py core.wsgi"]
+CMD ["gunicorn --config gunicorn-cfg.py core.wsgi"]
