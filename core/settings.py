@@ -28,7 +28,7 @@ if not SECRET_KEY:
     SECRET_KEY = ''.join(random.choice(string.ascii_lowercase) for i in range(32))
 
 # Render Deployment Code
-DEBUG = os.environ.get('DEBUG', True)
+DEBUG = os.environ.get('DEBUG', False)
 
 # HOSTs List
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'soft-ui-django-production.up.railway.app']
@@ -36,7 +36,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'soft-ui-django-production.up.railway
 # SECURE_HSTS_SECONDS 1 day
 SECURE_HSTS_SECONDS = 86400  # 1 day
 
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False
 
 SESSION_COOKIE_SECURE = True
 
@@ -45,8 +45,6 @@ SECURE_HSTS_PRELOAD = True
 CSRF_COOKIE_SECURE = True
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-
-
 
 # Add here your deployment HOSTS
 CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://localhost:5085', 'http://127.0.0.1:8000',
